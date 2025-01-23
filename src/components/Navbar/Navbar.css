@@ -1,0 +1,28 @@
+.navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 20px;
+    background-color:#333;
+    color:#fff;
+    font-family:Arial, sans-serif;
+}
+.navbar h3{
+    margin:0;
+    font-size:25px;
+    font-weight:bold;
+    cursor:pointer;
+}
+.navbar-menu{
+    display:flex;
+    gap:20px;
+}
+.p{
+    margin:0;
+    font-size:18px;
+    cursor:pointer;
+    transition:color 0.3s ease;
+}
+.navbar-menu .p:hover{
+    color:#ff9933
+}

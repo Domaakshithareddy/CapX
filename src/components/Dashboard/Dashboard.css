@@ -1,0 +1,32 @@
+body {    
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(to right,rgb(13, 114, 40),rgb(255, 163, 93));
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+}
+.boxd{
+    border: 1px solid #fff;
+    border-radius:16px;
+    padding: 10px;
+    background: black;
+}
+.dashboard {
+    text-align: center;
+}
+.pandl{
+    display: flex;
+    gap:15px;
+    margin-top: 10px;
+}
+.dashboard h2 {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.dashboard .pandl p {
+    font-size: 18px;
+    color: #fff;
+}

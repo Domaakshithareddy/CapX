@@ -1,0 +1,61 @@
+.boxf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;  /* You can adjust this to your preference */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+}
+  
+p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+  
+p:first-child {
+    font-weight: bold;
+    font-size: 18px;
+}
+  
+p:nth-child(2) {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2e8b57; /* Green color for positive balance */
+}
+  
+/* General button styling */
+button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+/* Deposit button specific styling */
+button.dip {
+    background-color: #4CAF50; /* Green color for Deposit */
+}
+
+button.dip:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Withdraw button specific styling */
+button.with {
+    background-color: #f44336; /* Red color for Withdraw */
+}
+
+button.with:hover {
+    background-color: #e53935; /* Darker red on hover */
+}
+
