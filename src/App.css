@@ -18,7 +18,7 @@
   margin-top: 20px; 
 }
 
-// Ensure the navbar stays on top
+/* Ensure the navbar stays on top */
 .navbar {
   position: fixed;
   top: 0;
