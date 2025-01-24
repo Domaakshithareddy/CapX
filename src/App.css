@@ -1,16 +1,12 @@
-/* App.css */
-
-/* Ensure that the app container fills the entire height of the screen */
 .app {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
-  padding-top: 60px; /* Adjust padding to prevent navbar overlap */
+  padding-top: 60px; 
 }
 
-/* Content styling to make sure it is well-centered and responsive */
 .content {
   display: flex;
   justify-content: center;
@@ -19,10 +15,10 @@
   flex-wrap: wrap; 
   width: 100%;
   padding: 20px; 
-  margin-top: 20px; /* Reduced margin-top to balance the navbar height */
+  margin-top: 20px; 
 }
 
-/* Ensure the navbar stays on top */
+// Ensure the navbar stays on top
 .navbar {
   position: fixed;
   top: 0;
@@ -37,5 +33,5 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 2px -2px gray; /* Optional: Add a subtle shadow to navbar */
+  box-shadow: 0 4px 2px -2px gray; 
 }

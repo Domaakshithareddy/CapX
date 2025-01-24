@@ -1,7 +1,6 @@
-/* Container for the entire form */
 .box {
     max-width: 400px;
-    margin: 50px auto; /* Center align the form */
+    margin: 50px auto; 
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -11,14 +10,12 @@
     font-family: Arial, sans-serif;
 }
 
-/* Text inside the box */
 .box p {
     font-size: 1.2rem;
     margin-bottom: 20px;
     color: #333;
 }
 
-/* Styling the form labels */
 form label {
     display: block;
     text-align: left;
@@ -27,7 +24,6 @@ form label {
     color: #555;
 }
 
-/* Styling input fields */
 form input {
     width: 100%;
     padding: 10px;
@@ -39,20 +35,17 @@ form input {
     transition: border-color 0.3s ease;
 }
 
-/* Focus style for input fields */
 form input:focus {
     border-color: #007bff;
     outline: none;
 }
 
-/* Add some spacing between elements */
 form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* Submit button styling */
 form input[type="submit"] {
     background-color: #007bff;
     color: white;
