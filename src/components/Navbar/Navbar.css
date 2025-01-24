@@ -10,11 +10,15 @@
     color:#fff;
     font-family:Arial, sans-serif;
 }
-.navbar h3{
+.navbar .h3{
     margin:0;
     font-size:25px;
     font-weight:bold;
     cursor:pointer;
+    color: rgb(255, 163, 93);
+}
+.navbar .h3:hover{
+    color: rgb(214, 139, 82);
 }
 .navbar-menu{
     display:flex;
