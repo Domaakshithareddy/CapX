@@ -8,8 +8,8 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(true);
     const [portfolioLoading, setPortfolioLoading] = useState(true);
 
-    const stockSymbols = ["aapl"]; 
-    // const stockSymbols = ["aapl", "TCS.NS", "INFY.NS", "HDFCBANK.NS", "ITC.NS"]; 
+    const stockSymbols = ["AAPL"]; 
+    // const stockSymbols = ["AAPL","NKE","DIS","SBUX","BA"]; 
 
     useEffect(() => {
         const fetchAllStocks = async () => {

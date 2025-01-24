@@ -7,16 +7,24 @@ const Funds=()=>{
     const [actionType, setActionType]=useState("");
 
     const deposit=()=>{
-        setBalance(balance+Number(amount));
-        closeModal();
+        if (amount>0){
+            setBalance(balance+Number(amount));
+            closeModal();
+        } else {
+            alert("Amount must be greater than 0!");
+        }
     };
     const withdraw=()=>{
-        if (balance>=Number(amount)){
-            setBalance(balance-Number(amount));
+        if (amount>0){
+            if (balance>=Number(amount)){
+                setBalance(balance-Number(amount));
+                closeModal();
+            } else {
+                alert("Insufficient balance!");
+            }
         } else {
-            alert("Insufficient balance!");
+            alert("Amount must be greater than 0!");
         }
-        closeModal();
     };
     const openModal=(type)=>{
         setActionType(type);
