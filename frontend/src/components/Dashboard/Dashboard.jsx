@@ -11,8 +11,8 @@ const Dashboard = () => {
     const [selectedStock, setSelectedStock] = useState(null);
     const [quantity, setQuantity] = useState(1);
 
-    const stockSymbols = ["AAPL"];
-    // const stockSymbols = ["AAPL", "NKE", "DIS", "SBUX", "BA"];
+    // const stockSymbols = ["AAPL"];
+    const stockSymbols = ["AAPL", "NKE", "DIS", "SBUX", "BA"];
 
     useEffect(() => {
         const fetchAllStocks = async () => {
@@ -43,8 +43,9 @@ const Dashboard = () => {
         const fetchPortfolioPrices = async () => {
             try {
                 const exampleAddedStocks = [
-                    { name: "aapl", symbol: "AAPL", quantity: 2, buyPrice: 200 },
-                    { name: "nke", symbol: "NKE", quantity: 1, buyPrice: 75 },
+                    { name: "AAPL", symbol: "AAPL", quantity: 2, buyPrice: 200 },
+                    { name: "NKE", symbol: "NKE", quantity: 1, buyPrice: 75 },
+                    { name: "DIS", symbol: "DIS", quantity: 3, buyPrice: 120 }
                 ];
 
                 const updatedStocks = await Promise.all(

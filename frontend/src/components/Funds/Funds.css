@@ -1,37 +1,47 @@
+body {
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(to right, rgb(13, 114, 40), rgb(255, 163, 93));
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: sans-serif;
+}
+
 .boxf {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 300px;  
+    width: 300px;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #fff;
     border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     margin: 20px auto;
 }
-  
+
 p {
     margin: 10px 0;
     font-size: 16px;
-    color: #333;
+    color: #fff;
 }
-  
+
 p:first-child {
     font-weight: bold;
     font-size: 18px;
 }
-  
+
 p:nth-child(2) {
     font-size: 20px;
     font-weight: bold;
-    color: #2e8b57; 
+    color: #2e8b57;
 }
-  
-.buttons{
-    display:flex;
-    gap:10px;
+
+.buttons {
+    display: flex;
+    gap: 10px;
 }
 
 button {
@@ -46,22 +56,21 @@ button {
 }
 
 button.dip {
-    background-color: #4CAF50; 
+    background-color: #4CAF50;
 }
 
 button.dip:hover {
-    background-color: #45a049; 
+    background-color: #45a049;
 }
 
 button.with {
-    background-color: #f44336; 
+    background-color: #f44336;
 }
+
 button.with:hover {
-    background-color: #e53935; 
+    background-color: #e53935;
 }
 
-
-  
 .modal {
     position: fixed;
     top: 0;
@@ -74,7 +83,7 @@ button.with:hover {
     align-items: center;
     z-index: 1000;
 }
-  
+
 .modal-content {
     background: white;
     padding: 20px;
@@ -83,10 +92,10 @@ button.with:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.modal-content h3{
+.modal-content h3 {
     color: #333;
 }
-  
+
 .modal-content input {
     margin: 10px 0;
     padding: 10px;
@@ -94,7 +103,7 @@ button.with:hover {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-  
+
 .modal-buttons button {
     margin: 5px;
     padding: 10px 20px;
@@ -103,12 +112,11 @@ button.with:hover {
     color: white;
     border-radius: 5px;
 }
-  
+
 button.action {
-    background-color: #4caf50; 
+    background-color: #4caf50;
 }
-  
+
 button.cancel {
     background-color: #f44336;
 }
-  
