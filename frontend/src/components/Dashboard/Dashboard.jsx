@@ -3,13 +3,16 @@ import { useState, useEffect } from "react";
 import { fetchStockPrice } from '../../api/api'; // Assuming api/api.js contains the fetchStockPrice function
 
 const Dashboard = () => {
-    const [liveStocks, setLiveStocks] = useState([]); 
-    const [addedStocks, setAddedStocks] = useState([]); 
+    const [liveStocks, setLiveStocks] = useState([]);
+    const [addedStocks, setAddedStocks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [portfolioLoading, setPortfolioLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedStock, setSelectedStock] = useState(null);
+    const [quantity, setQuantity] = useState(1);
 
-    const stockSymbols = ["AAPL"]; 
-    // const stockSymbols = ["AAPL","NKE","DIS","SBUX","BA"]; 
+    const stockSymbols = ["AAPL"];
+    // const stockSymbols = ["AAPL", "NKE", "DIS", "SBUX", "BA"];
 
     useEffect(() => {
         const fetchAllStocks = async () => {
@@ -21,7 +24,7 @@ const Dashboard = () => {
                             return { name: symbol.split(".")[0], symbol, price };
                         } catch (error) {
                             console.error(`Error fetching data for ${symbol}:`, error);
-                            return { name: symbol.split(".")[0], symbol, price: "Error" }; 
+                            return { name: symbol.split(".")[0], symbol, price: "Error" };
                         }
                     })
                 );
@@ -47,10 +50,10 @@ const Dashboard = () => {
                 const updatedStocks = await Promise.all(
                     exampleAddedStocks.map(async (stock) => {
                         try {
-                            const price = await fetchStockPrice(stock.symbol); 
+                            const price = await fetchStockPrice(stock.symbol);
                             return {
                                 ...stock,
-                                currentPrice: price, 
+                                currentPrice: price,
                             };
                         } catch (error) {
                             console.error(`Error fetching current price for ${stock.symbol}:`, error);
@@ -75,14 +78,34 @@ const Dashboard = () => {
         (sum, stock) => sum + (stock.currentPrice !== "Error" ? stock.quantity * stock.currentPrice : 0),
         0
     );
-    const profitLossPercentage = totalInvestment 
-        ? (((currentPortfolioValue - totalInvestment) / totalInvestment) * 100).toFixed(2) 
+    const profitLossPercentage = totalInvestment
+        ? (((currentPortfolioValue - totalInvestment) / totalInvestment) * 100).toFixed(2)
         : "0";
+
+    const openModal = (stock) => {
+        setSelectedStock(stock);
+        setQuantity(1); // Reset quantity to 1 on modal open
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const buyStock = () => {
+        if (quantity > 0) {
+            // Logic to handle stock purchase
+            console.log(`Buying ${quantity} of ${selectedStock.symbol} at ₹${selectedStock.price}`);
+            closeModal();
+        } else {
+            alert("Please enter a valid quantity.");
+        }
+    };
 
     return (
         <>
-            <div className='boxd'>
-                <div className='dashboard'>
+            <div className="boxd">
+                <div className="dashboard">
                     <h2>Watchlist</h2>
                     {loading ? (
                         <p>Loading stock data...</p>
@@ -102,13 +125,18 @@ const Dashboard = () => {
                                         <td>{stock.name}</td>
                                         <td>{stock.symbol}</td>
                                         <td>
-                                            {stock.price === "Error" 
-                                                ? "Error fetching price" 
+                                            {stock.price === "Error"
+                                                ? "Error fetching price"
                                                 : `₹${stock.price}`}
                                         </td>
                                         <td style={{ gap: "50px" }}>
-                                            <button style={{ width: "75px", background: '#4CAF50', marginRight: '10px' }}>Buy</button>
-                                            <button style={{ width: "75px", background: '#f44336' }}>Sell</button>
+                                            <button
+                                                style={{ width: "75px", background: "#4CAF50", marginRight: "10px" }}
+                                                onClick={() => openModal(stock)}
+                                            >
+                                                Buy
+                                            </button>
+                                            <button style={{ width: "75px", background: "#f44336" }}>Sell</button>
                                         </td>
                                     </tr>
                                 ))}
@@ -118,14 +146,14 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            <div className='boxd'>
-                <div className='dashboard'>
+            <div className="boxd">
+                <div className="dashboard">
                     <h2>Portfolio Summary</h2>
                     {portfolioLoading ? (
                         <p>Loading portfolio data...</p>
                     ) : (
                         <>
-                            <div className='pandl'>
+                            <div className="pandl">
                                 <p>Profit and Loss: {profitLossPercentage}%</p>
                                 <p>Total Investment: ₹{totalInvestment}</p>
                                 <p>Current Value: ₹{currentPortfolioValue}</p>
@@ -149,8 +177,8 @@ const Dashboard = () => {
                                             <td>{stock.quantity}</td>
                                             <td>₹{stock.buyPrice}</td>
                                             <td>
-                                                {stock.currentPrice === "Error" 
-                                                    ? "Error fetching price" 
+                                                {stock.currentPrice === "Error"
+                                                    ? "Error fetching price"
                                                     : `₹${stock.currentPrice}`}
                                             </td>
                                             <td>
@@ -166,11 +194,222 @@ const Dashboard = () => {
                     )}
                 </div>
             </div>
+
+            {/* Modal for Buy Stock */}
+            {isModalOpen && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h3>Buy {selectedStock.name}</h3>
+                        <input
+                            type="number"
+                            value={quantity}
+                            onChange={(e) => setQuantity(e.target.value)}
+                            placeholder="Enter Quantity"
+                            min="1"
+                        />
+                        <div className="modal-buttons">
+                            <button className="action" onClick={buyStock}>
+                                Buy
+                            </button>
+                            <button className="cancel" onClick={closeModal}>
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 };
 
 export default Dashboard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import './Dashboard.css';
+// import { useState, useEffect } from "react";
+// import { fetchStockPrice } from '../../api/api'; // Assuming api/api.js contains the fetchStockPrice function
+
+// const Dashboard = () => {
+//     const [liveStocks, setLiveStocks] = useState([]); 
+//     const [addedStocks, setAddedStocks] = useState([]); 
+//     const [loading, setLoading] = useState(true);
+//     const [portfolioLoading, setPortfolioLoading] = useState(true);
+
+//     const stockSymbols = ["AAPL"]; 
+//     // const stockSymbols = ["AAPL","NKE","DIS","SBUX","BA"]; 
+
+//     useEffect(() => {
+//         const fetchAllStocks = async () => {
+//             try {
+//                 const stockData = await Promise.all(
+//                     stockSymbols.map(async (symbol) => {
+//                         try {
+//                             const price = await fetchStockPrice(symbol);
+//                             return { name: symbol.split(".")[0], symbol, price };
+//                         } catch (error) {
+//                             console.error(`Error fetching data for ${symbol}:`, error);
+//                             return { name: symbol.split(".")[0], symbol, price: "Error" }; 
+//                         }
+//                     })
+//                 );
+//                 setLiveStocks(stockData);
+//             } catch (error) {
+//                 console.error("Error fetching stock data:", error);
+//             } finally {
+//                 setLoading(false);
+//             }
+//         };
+
+//         fetchAllStocks();
+//     }, []);
+
+//     useEffect(() => {
+//         const fetchPortfolioPrices = async () => {
+//             try {
+//                 const exampleAddedStocks = [
+//                     { name: "aapl", symbol: "AAPL", quantity: 2, buyPrice: 200 },
+//                     { name: "nke", symbol: "NKE", quantity: 1, buyPrice: 75 },
+//                 ];
+
+//                 const updatedStocks = await Promise.all(
+//                     exampleAddedStocks.map(async (stock) => {
+//                         try {
+//                             const price = await fetchStockPrice(stock.symbol); 
+//                             return {
+//                                 ...stock,
+//                                 currentPrice: price, 
+//                             };
+//                         } catch (error) {
+//                             console.error(`Error fetching current price for ${stock.symbol}:`, error);
+//                             return { ...stock, currentPrice: "Error" };
+//                         }
+//                     })
+//                 );
+
+//                 setAddedStocks(updatedStocks);
+//             } catch (error) {
+//                 console.error("Error fetching portfolio data:", error);
+//             } finally {
+//                 setPortfolioLoading(false);
+//             }
+//         };
+
+//         fetchPortfolioPrices();
+//     }, []);
+
+//     const totalInvestment = addedStocks.reduce((sum, stock) => sum + stock.quantity * stock.buyPrice, 0);
+//     const currentPortfolioValue = addedStocks.reduce(
+//         (sum, stock) => sum + (stock.currentPrice !== "Error" ? stock.quantity * stock.currentPrice : 0),
+//         0
+//     );
+//     const profitLossPercentage = totalInvestment 
+//         ? (((currentPortfolioValue - totalInvestment) / totalInvestment) * 100).toFixed(2) 
+//         : "0";
+
+//     return (
+//         <>
+//             <div className='boxd'>
+//                 <div className='dashboard'>
+//                     <h2>Watchlist</h2>
+//                     {loading ? (
+//                         <p>Loading stock data...</p>
+//                     ) : (
+//                         <table border="1" cellPadding="10" style={{ width: "100%" }}>
+//                             <thead>
+//                                 <tr>
+//                                     <th>Stock Name</th>
+//                                     <th>Symbol</th>
+//                                     <th>Current Price (₹)</th>
+//                                     <th>Buy or Sell</th>
+//                                 </tr>
+//                             </thead>
+//                             <tbody>
+//                                 {liveStocks.map((stock, index) => (
+//                                     <tr key={index}>
+//                                         <td>{stock.name}</td>
+//                                         <td>{stock.symbol}</td>
+//                                         <td>
+//                                             {stock.price === "Error" 
+//                                                 ? "Error fetching price" 
+//                                                 : `₹${stock.price}`}
+//                                         </td>
+//                                         <td style={{ gap: "50px" }}>
+//                                             <button style={{ width: "75px", background: '#4CAF50', marginRight: '10px' }}>Buy</button>
+//                                             <button style={{ width: "75px", background: '#f44336' }}>Sell</button>
+//                                         </td>
+//                                     </tr>
+//                                 ))}
+//                             </tbody>
+//                         </table>
+//                     )}
+//                 </div>
+//             </div>
+
+//             <div className='boxd'>
+//                 <div className='dashboard'>
+//                     <h2>Portfolio Summary</h2>
+//                     {portfolioLoading ? (
+//                         <p>Loading portfolio data...</p>
+//                     ) : (
+//                         <>
+//                             <div className='pandl'>
+//                                 <p>Profit and Loss: {profitLossPercentage}%</p>
+//                                 <p>Total Investment: ₹{totalInvestment}</p>
+//                                 <p>Current Value: ₹{currentPortfolioValue}</p>
+//                             </div>
+//                             <table border="1" cellPadding="10" style={{ width: "100%" }}>
+//                                 <thead>
+//                                     <tr>
+//                                         <th>Stock Name</th>
+//                                         <th>Symbol</th>
+//                                         <th>Quantity</th>
+//                                         <th>Buy Price (₹)</th>
+//                                         <th>Current Price (₹)</th>
+//                                         <th>Total Value (₹)</th>
+//                                     </tr>
+//                                 </thead>
+//                                 <tbody>
+//                                     {addedStocks.map((stock, index) => (
+//                                         <tr key={index}>
+//                                             <td>{stock.name}</td>
+//                                             <td>{stock.symbol}</td>
+//                                             <td>{stock.quantity}</td>
+//                                             <td>₹{stock.buyPrice}</td>
+//                                             <td>
+//                                                 {stock.currentPrice === "Error" 
+//                                                     ? "Error fetching price" 
+//                                                     : `₹${stock.currentPrice}`}
+//                                             </td>
+//                                             <td>
+//                                                 {stock.currentPrice === "Error"
+//                                                     ? "Error"
+//                                                     : `₹${(stock.quantity * stock.currentPrice).toFixed(2)}`}
+//                                             </td>
+//                                         </tr>
+//                                     ))}
+//                                 </tbody>
+//                             </table>
+//                         </>
+//                     )}
+//                 </div>
+//             </div>
+//         </>
+//     );
+// };
+
+// export default Dashboard;
 
 
 
